@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class Transaction {
     @Id
     private String id;
-    @NotBlank (message = "El track<id es requerida")
+    @NotBlank (message = "El trackId es requerida")
     private String trackId;
 
     @NotBlank (message= "La referencia es requerida")

@@ -37,7 +37,7 @@ public class TransactionController {
         }
         try {
             Transaction savedTransaction = transactionService.saveTransaction(transaction);
-            return ResponseEntity.ok(Collections.singletonMap("message", "Transaction saved successfully"));
+            return ResponseEntity.ok(Collections.singletonMap("message", "Transaction guardada correctamente"));
         } catch (Exception e) {
             log.info("Salvar transaccion");
             return ResponseEntity.status(400).body(Collections.singletonMap("error", e.getMessage()));
@@ -50,7 +50,7 @@ public class TransactionController {
         Optional<Transaction> transaction = transactionService.getTransactionByTrackID(trackID);
         log.info("Consulta por trackID");
         return transaction.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.status(404).body((Transaction) Collections.singletonMap("error", "Transaction not found")));
+                .orElseGet(() -> ResponseEntity.status(404).body((Transaction) Collections.singletonMap("error", "Transacción no encontrada")));
     }
 
 
@@ -65,12 +65,12 @@ public class TransactionController {
             List<Transaction> transactions = transactionService.getTransactionsByDateRange(start, end);
 
             if (transactions.isEmpty()) {
-                return ResponseEntity.status(404).body("No transactions found in the given date range.");
+                return ResponseEntity.status(404).body("No hay resultados en el rango de fechas.");
             }
             log.info("Consulta por periodo");
             return ResponseEntity.ok(transactions);
         } catch (Exception e) {
-            return ResponseEntity.status(400).body("Invalid date format. Use: yyyy-MM-dd");
+            return ResponseEntity.status(400).body("Invalido formato de fecha. Use: yyyy-MM-dd");
         }
     }
 }

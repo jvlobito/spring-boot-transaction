@@ -59,14 +59,17 @@ public class TransactionService {
     }
 
     public Transaction saveTransaction(Transaction transaction) throws Exception {
+        if ( transaction.getTrackId() == null || transaction.getTrackId().isEmpty()) {
+            throw new Exception("Transacción no puede ser null");
+        }
         if (isDuplicate(transaction.getTrackId())) {
-            throw new Exception("Duplicate transaction");
+            throw new Exception("Transacción duplicada");
         }
         if (transaction.getAmount() <= 0) {
-            throw new Exception("Invalid amount");
+            throw new Exception("Monto no permitido");
         }
         if (!isCardDataValid(transaction)) {
-            throw new Exception("Invalid card data");
+            throw new Exception("Datos de tarjeta invalido (cvv 3 digitos, pan 16 digitos, exDate MM/YY)");
         }
 
         transaction.setCreatedAt(LocalDate.now());
