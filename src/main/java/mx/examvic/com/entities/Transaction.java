@@ -4,8 +4,10 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import jakarta.validation.constraints.*;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 //
 @Data
@@ -38,6 +40,6 @@ public class Transaction {
     @Pattern(regexp = "(0[1-9]|1[0-2])/(\\d{2})", message = "La fecha de expiración debe estar en formato MM/YY")
     private String expDate;
 
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
 }

@@ -3,8 +3,6 @@ package mx.examvic.com.service;
 import mx.examvic.com.entities.Transaction;
 import mx.examvic.com.repository.TransactionRepository;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -72,8 +70,8 @@ public class TransactionService {
             throw new Exception("Datos de tarjeta invalido (cvv 3 digitos, pan 16 digitos, exDate MM/YY)");
         }
 
-        transaction.setCreatedAt(LocalDate.now());
-        transaction.setUpdatedAt(LocalDate.now());
+        transaction.setCreatedAt(new Date());
+        transaction.setUpdatedAt(new Date());
         return transactionRepository.save(transaction);
     }
 
@@ -81,7 +79,7 @@ public class TransactionService {
         return transactionRepository.findByTrackId(trackId);
     }
 
-    public List<Transaction> getTransactionsByDateRange(LocalDate startDate, LocalDate endDate) {
+    public List<Transaction> getTransactionsByDateRange(Date startDate, Date endDate) {
         return transactionRepository.findByDateBetween(startDate, endDate);
     }
 }

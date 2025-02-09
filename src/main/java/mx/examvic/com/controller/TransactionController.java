@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -58,9 +59,11 @@ public class TransactionController {
     @Operation(summary = "Consultar transacciones por fecha", description = "Recupera transacciones dentro de un rango de fechas.")
     public ResponseEntity<?> getTransactionsByDateRange(@PathVariable String startDate, @PathVariable String endDate) {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            LocalDate start = LocalDate.parse(startDate + " 00:00:00", formatter);
-            LocalDate end = LocalDate.parse(endDate + " 23:59:59", formatter);
+            Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+            Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+
+            // Ajustar la hora para incluir todo el día final
+            end = new Date(end.getTime() + 86399999); // 23:59:59 del mismo día
 
             List<Transaction> transactions = transactionService.getTransactionsByDateRange(start, end);
 

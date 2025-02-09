@@ -15,8 +15,8 @@ import java.util.Optional;
 public interface TransactionRepository extends MongoRepository<Transaction, String> {
 
     Optional<Transaction> findByTrackId(String trackId);
-    @Query("{' createAt' : {$gte: ?0, $lte: ?1 } }")
-    List<Transaction> findByDateBetween(LocalDate startDate, LocalDate endDate);
+    @Query("{'createdAt' : {$gte: ?0, $lte: ?1 } }")
+    List<Transaction> findByDateBetween(Date startDate, Date endDate);
 
 
 }
